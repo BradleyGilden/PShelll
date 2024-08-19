@@ -21,5 +21,27 @@ foreach ($item in $array) {
 }
 
 Write-Host ''
+# Or use a seperator
+Write-Host -Separator ', ' $array
+
 
 Write-Host $array2
+[System.Array]::Reverse($array)
+Write-Host 'reversed array:' $array
+
+$date = Get-Date -Date "06/02/2002 13:00:00"
+
+Write-Host $date.DayOfWeek
+
+# API requests
+
+Write-Host "`n************************ Making API Requests *************************`n"
+
+$response = Invoke-RestMethod -Method Get -Uri 'https://jsonplaceholder.typicode.com/todos/1'
+
+
+Write-Host $response
+
+$response = $response | ConvertTo-Json
+
+Write-Host $response
