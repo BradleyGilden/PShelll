@@ -29,19 +29,43 @@ Write-Host $array2
 [System.Array]::Reverse($array)
 Write-Host 'reversed array:' $array
 
+# The culuture will effect how the date and currency is processed
+Set-Culture 'en-ZA'
+
+$price = 1234.567
+Write-Host ("The price is {0:C}" -f $price)
+
 $date = Get-Date -Date "06/02/2002 13:00:00"
+
 
 Write-Host $date.DayOfWeek
 
 # API requests
 
-Write-Host "`n************************ Making API Requests *************************`n"
+Write-Host -ForegroundColor Blue "`n************************ Making API Requests *************************`n"
 
 $response = Invoke-RestMethod -Method Get -Uri 'https://jsonplaceholder.typicode.com/todos/1'
 
 
-Write-Host $response
+Write-Host -ForegroundColor Magenta $response
 
 $response = $response | ConvertTo-Json
 
-Write-Host $response
+Write-Host -ForegroundColor Yellow $response
+
+#################################################################################
+Write-Host -ForegroundColor Blue "`nALL PROVIDER DRIVES ON THE SYSTEM" 
+
+Get-PSDrive
+Write-Host ''
+# Provider Drive variables
+Write-Host "Alias for ls: ${Alias:ls}"
+# Provider drive for environment
+Write-Host $Env:LANG
+
+# Static built-in variable
+
+$radius = 2.45
+$circumference = 2 * ([Math]::PI) * $radius
+
+Write-Host ([Math]::Round($circumference, 2))
