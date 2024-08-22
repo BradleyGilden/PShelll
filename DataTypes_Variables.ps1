@@ -69,3 +69,5 @@ $radius = 2.45
 $circumference = 2 * ([Math]::PI) * $radius
 
 Write-Host ([Math]::Round($circumference, 2))
+Write-Host ([Float]::NaN)
+Write-Host ([Short]::MaxValue) # there is also Int, Long, Uint, Ulong, Byte, Sbyte
