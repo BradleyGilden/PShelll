@@ -71,3 +71,13 @@ $circumference = 2 * ([Math]::PI) * $radius
 Write-Host ([Math]::Round($circumference, 2))
 Write-Host ([Float]::NaN)
 Write-Host ([Short]::MaxValue) # there is also Int, Long, Uint, Ulong, Byte, Sbyte
+
+# Hash Table (similar to obj)
+
+Write-Host -ForegroundColor Blue 'Hash Tables'
+
+$hash1 = @{ FirstName = "James"; LastName = "Anderson" }
+
+Write-Host $hash1
+
+Write-Host "`$hash1['FirstName'] or `$hash1.FirstName: " $hash1.FirstName
