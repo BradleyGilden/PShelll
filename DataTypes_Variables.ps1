@@ -69,5 +69,11 @@ $radius = 2.45
 $circumference = 2 * ([Math]::PI) * $radius
 
 Write-Host ([Math]::Round($circumference, 2))
-Write-Host ([Float]::NaN)
+
+# ******************************** TYPES ************************************
+Write-Host -ForegroundColor Blue "`n ******************** TYPES ***********************`n"
+# Powershell is built ontop of .NET, so shares same types with properties and methods as C#
+Write-Host ([Float]::isNaN([Float]::NaN))
 Write-Host ([Short]::MaxValue) # there is also Int, Long, Uint, Ulong, Byte, Sbyte
+$num = 32
+Write-Host ($num.ToString(32).GetType())
