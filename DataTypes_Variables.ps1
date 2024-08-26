@@ -75,5 +75,13 @@ Write-Host -ForegroundColor Blue "`n ******************** TYPES ****************
 # Powershell is built ontop of .NET, so shares same types with properties and methods as C#
 Write-Host ([Float]::isNaN([Float]::NaN))
 Write-Host ([Short]::MaxValue) # there is also Int, Long, Uint, Ulong, Byte, Sbyte
-$num = 32
-Write-Host ($num.ToString(32).GetType())
+
+# Hash Table (similar to obj)
+
+Write-Host -ForegroundColor Blue 'Hash Tables'
+
+$hash1 = @{ FirstName = "James"; LastName = "Anderson" }
+
+Write-Host $hash1
+
+Write-Host "`$hash1['FirstName'] or `$hash1.FirstName: " $hash1.FirstName
