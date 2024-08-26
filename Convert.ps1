@@ -1,7 +1,7 @@
 # There are 3 methods of conversion
 $num = 32
 
-# casting
+# Explicit casting
 # There are no safety measures
 Write-Host (([String]$num).GetType())
 
