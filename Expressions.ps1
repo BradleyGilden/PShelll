@@ -31,3 +31,6 @@ Write-Host $a.Length
 # 2D array
 $a = @((3, 4), (5, 6))
 Write-Host $a.Length
+
+$a = @{ID = 1 }, @{ID = 2 }, @{ID = 3 }
+Write-Host $a.ID  # get ID from each element in the array
