@@ -10,10 +10,18 @@ if($CWD -cmatch "C:\\Users\\$($Env:USERNAME)") {
     while($i -ge 0) {
         $CWD1[$i--] = $CWD1[$i][0]
     }
-    $CWD1 = Write-Output  | Where-Object {$_}
+    $CWD1 = Write-Output $CWD1 | Where-Object {$_}
+    if ($CWD1 -isnot [array]) {
+        $CWD1 = @($CWD1)
+    }
     $CWD2 = $CWD[-2..-1]
     $CWD = $CWD1 + $CWD2
     $CWD = $CWD -join '\'
-    Write-Host $CWD, $CWD1, $CWD2
-    Write-Host ('~\' + $CWD)
+    if ($CWD) {
+        $CWD = '~\' + $CWD
+    } else {
+        $CWD = '~'
+    }
+
+    Write-Host $CWD
 }
