@@ -24,4 +24,12 @@ if($CWD -cmatch "C:\\Users\\$($Env:USERNAME)") {
     }
 
     Write-Host $CWD
+} elseif ($CWD.StartsWith("[A-Z]:\\Users")){
+    $CWD = $CWD -creplace "C:\\", ""
+    $CWD = $CWD -split '\\'
+    $CWD = $CWD -join '\'
+    $CWD = '\' + $CWD
+    Write-Host $CWD
+} else {
+    Write-Host $CWD
 }
