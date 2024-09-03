@@ -1,4 +1,6 @@
-
+param(
+    [string]$Argument1
+)
 
 $CWD = $PWD.Path
 
