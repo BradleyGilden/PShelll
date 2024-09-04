@@ -32,7 +32,7 @@ $day = $dateParams[0]
 $month = $dateParams[1]
 $year = $dateParams[2]
 
-$filePattern = "$day/$month/$year \d\d:\d\d:\d\d:\sExecuting\s<[a-zA-Z]:\\MrpSports\\scripts\\(pre)?stock\\ld_(res|pre)_stock.bat>\s\.\.\."
+$filePattern = "$day/$month/$year\s\d\d:\d\d:\d\d:\sExecuting\s<[a-zA-Z]:\\MrpSports\\scripts\\(pre)?stock\\ld_(res|pre)_stock.bat>\s\.\.\."
 
 try {
     if ($Lines -gt -1) {
