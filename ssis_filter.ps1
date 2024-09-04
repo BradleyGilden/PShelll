@@ -32,7 +32,7 @@ $month = $dateParams[1]
 $year = $dateParams[2]
 
 try {
-    $matched = Select-String -Path $ArgPath  -Pattern "$day/$month/$year \d\d:\d\d:\d\d:\sExecuting\s<[a-zA-Z]:\\MrpSports\\scripts\\(pre)?stock\\ld_(res|pre)_stock.bat>\s\.\.\." -Context 0,1 -CaseSensitive -NoEmphasis
+    $matched = Select-String -LiteralPath $ArgPath  -Pattern "$day/$month/$year \d\d:\d\d:\d\d:\sExecuting\s<[a-zA-Z]:\\MrpSports\\scripts\\(pre)?stock\\ld_(res|pre)_stock.bat>\s\.\.\." -Context 0,1 -CaseSensitive
     
     if (-not $matched) {
         Write-Host -ForegroundColor Red "No log entries found with the given date $day/$month/$year"
