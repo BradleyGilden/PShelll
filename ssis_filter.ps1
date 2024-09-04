@@ -1,6 +1,7 @@
 param(
     [String]$FilePath,
-    [String]$LogDate
+    [String]$LogDate,
+    [Int]$Lines=1000
 )
 
 function DisplayError {
@@ -32,7 +33,11 @@ $month = $dateParams[1]
 $year = $dateParams[2]
 
 try {
-    $matched = Select-String -LiteralPath $FilePath  -Pattern "$day/$month/$year \d\d:\d\d:\d\d:\sExecuting\s<[a-zA-Z]:\\MrpSports\\scripts\\(pre)?stock\\ld_(res|pre)_stock.bat>\s\.\.\." -Context 0,1 -CaseSensitive
+    if ($Lines -gt -1) {
+        $matched = Get-Content -LiteralPath $FilePath -Tail $Lines -ErrorAction Stop | Select-String -Pattern "$day/$month/$year \d\d:\d\d:\d\d:\sExecuting\s<[a-zA-Z]:\\MrpSports\\scripts\\(pre)?stock\\ld_(res|pre)_stock.bat>\s\.\.\." -Context 0,1 -CaseSensitive
+    } else {
+        $matched = Get-Content -LiteralPath $FilePath -ErrorAction Stop | Select-String -Pattern "$day/$month/$year \d\d:\d\d:\d\d:\sExecuting\s<[a-zA-Z]:\\MrpSports\\scripts\\(pre)?stock\\ld_(res|pre)_stock.bat>\s\.\.\." -Context 0,1 -CaseSensitive
+    }
     
     if (-not $matched) {
         Write-Host -ForegroundColor Red "No log entries found for the given date $day/$month/$year"
@@ -44,7 +49,12 @@ try {
         Write-Host $match.Context.PostContext
     }
 } catch {
-    Write-Host -ForegroundColor Red "Error: The file path " -NoNewline
-    Write-Host $FilePath -NoNewline
-    Write-Host -ForegroundColor Red " is invalid or cannot be found"
+    if ($_.CategoryInfo.Reason -eq 'ItemNotFoundException') {
+        Write-Host -ForegroundColor Red "Error: The file path " -NoNewline
+        Write-Host $FilePath -NoNewline
+        Write-Host -ForegroundColor Red " is invalid or cannot be found"
+    } else {
+        Write-Host -ForegroundColor Red $_.Exception.Message
+    }
+    exit
 }
