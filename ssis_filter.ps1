@@ -32,11 +32,13 @@ $day = $dateParams[0]
 $month = $dateParams[1]
 $year = $dateParams[2]
 
+$filePattern = "$day/$month/$year \d\d:\d\d:\d\d:\sExecuting\s<[a-zA-Z]:\\MrpSports\\scripts\\(pre)?stock\\ld_(res|pre)_stock.bat>\s\.\.\."
+
 try {
     if ($Lines -gt -1) {
-        $matched = Get-Content -LiteralPath $FilePath -Tail $Lines -ErrorAction Stop | Select-String -Pattern "$day/$month/$year \d\d:\d\d:\d\d:\sExecuting\s<[a-zA-Z]:\\MrpSports\\scripts\\(pre)?stock\\ld_(res|pre)_stock.bat>\s\.\.\." -Context 0,1 -CaseSensitive
+        $matched = Get-Content -LiteralPath $FilePath -Tail $Lines -ErrorAction Stop | Select-String -Pattern $filePattern -Context 0,1 -CaseSensitive
     } else {
-        $matched = Get-Content -LiteralPath $FilePath -ErrorAction Stop | Select-String -Pattern "$day/$month/$year \d\d:\d\d:\d\d:\sExecuting\s<[a-zA-Z]:\\MrpSports\\scripts\\(pre)?stock\\ld_(res|pre)_stock.bat>\s\.\.\." -Context 0,1 -CaseSensitive
+        $matched = Get-Content -LiteralPath $FilePath -ErrorAction Stop | Select-String -Pattern $filePattern -Context 0,1 -CaseSensitive
     }
     
     if (-not $matched) {
