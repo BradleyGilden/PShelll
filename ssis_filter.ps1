@@ -19,7 +19,7 @@ $dateParams = $dateParams | Where-Object {$_}
 if ($dateParams.Length -lt 3) {
     DisplayError
     exit
-} elseif ($dateParams[0].Length -lt 2 -or $dateParams[1].Length -lt 2 -or $dateParams[2].Length -lt 4) {
+} elseif ($dateParams[0].Length -ne 2 -or $dateParams[1].Length -ne 2 -or $dateParams[2].Length -ne 4) {
     DisplayError
     exit
 } elseif ($dateParams[0] -notmatch "^\d+$" -or $dateParams[1] -notmatch "^\d+$" -or $dateParams[2] -notmatch "^\d+$") {
@@ -27,6 +27,24 @@ if ($dateParams.Length -lt 3) {
     exit
 }
 
-Write-Host $dateParams
+$day = $dateParams[0]
+$month = $dateParams[1]
+$year = $dateParams[2]
 
-# Get-Content $ArgPath | Select-String -CaseSensitive -Context 0,1 -Pattern ""
+try {
+    $matched = Select-String -Path $ArgPath  -Pattern "$day/$month/$year \d\d:\d\d:\d\d:\sExecuting\s<[a-zA-Z]:\\MrpSports\\scripts\\(pre)?stock\\ld_(res|pre)_stock.bat>\s\.\.\." -Context 0,1 -CaseSensitive -NoEmphasis
+    
+    if (-not $matched) {
+        Write-Host -ForegroundColor Red "No log entries found with the given date $day/$month/$year"
+        exit
+    }
+
+    foreach($match in $matched) {
+        Write-Host -ForegroundColor Green $match.Line
+        Write-Host $match.Context.PostContext
+    }
+} catch {
+    Write-Host -ForegroundColor Red "Error: The file path " -NoNewline
+    Write-Host $ArgPath -NoNewline
+    Write-Host -ForegroundColor Red " is invalid or cannot be found"
+}
