@@ -34,7 +34,7 @@ if ($dateParams.Length -lt 3) {
     Write-ErrorMessage
 } elseif ($dateParams[0].Length -ne 2 -or $dateParams[1].Length -ne 2 -or $dateParams[2].Length -ne 4) {
     Write-ErrorMessage
-} elseif ($dateParams[0] -notmatch "^\d+$" -or $dateParams[1] -notmatch "^\d+$" -or $dateParams[2] -notmatch "^\d+$") {
+} elseif ($dateParams | Where-Object { $_ -notmatch "^\d+$" }) {
     Write-ErrorMessage
 }
 
